@@ -1,5 +1,6 @@
 package com.exercise.backend;
 
+import com.exercise.backend.Entities.Debt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
