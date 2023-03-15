@@ -1,6 +1,8 @@
 package com.exercise.backend;
 
 import com.exercise.backend.Entities.Debt;
+import com.exercise.backend.Repository.DebtRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +10,8 @@ import java.util.*;
 
 @SpringBootApplication
 public class BackendApplication {
+	@Autowired
+	private static DebtRepository debtRepository;
 	private static int paymentSnowball;
 	private static int totalBalance;
 
@@ -20,6 +24,7 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 
 		inputPrompt();
+		seed();
 		//int startingAmountMonthly = 100;
 		//int[] debtPayments = {25, 35, 15, 10, 50};
 		//int[] debtBalances = {100, 500, 200, 300, 400};
@@ -133,6 +138,10 @@ public class BackendApplication {
 				"which will apply from the least to the greatest balances.  As balances are paid off, their respective payment amounts will be added to this to create the snowball effect./n" +
 				" Zeroes are acceptable inputs.");
 		startingAmountMonthly = Integer.parseInt(in.nextLine());
+	}
+	public static void seed() {
+		Debt debt = new Debt(20,20);
+		debtRepository.save(debt);
 	}
 
 }
