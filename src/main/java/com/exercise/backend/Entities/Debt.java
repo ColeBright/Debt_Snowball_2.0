@@ -1,8 +1,10 @@
-package com.exercise.backend.Entities;
+ package com.exercise.backend.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Debt {
 
     @Id
