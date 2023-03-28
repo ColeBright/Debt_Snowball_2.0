@@ -2,16 +2,18 @@ package com.exercise.backend;
 
 import com.exercise.backend.Entities.Debt;
 import com.exercise.backend.Repository.DebtRepository;
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @SpringBootApplication
 public class BackendApplication {
-	@Autowired
-	private static DebtRepository debtRepository;
 	private static int paymentSnowball;
 	private static int totalBalance;
 
@@ -24,10 +26,6 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 
 		inputPrompt();
-		seed();
-		//int startingAmountMonthly = 100;
-		//int[] debtPayments = {25, 35, 15, 10, 50};
-		//int[] debtBalances = {100, 500, 200, 300, 400};
 		List<Debt> debtList = new ArrayList<Debt>();
 
 		int balanceIncrement = 0;
@@ -139,9 +137,27 @@ public class BackendApplication {
 				" Zeroes are acceptable inputs.");
 		startingAmountMonthly = Integer.parseInt(in.nextLine());
 	}
-	public static void seed() {
-		Debt debt = new Debt(20,20);
-		debtRepository.save(debt);
-	}
+	@Component
+	public class DataLoader implements ApplicationRunner {
 
+		private DebtRepository debtRepository;
+
+		@Autowired
+		public DataLoader(DebtRepository debtRepository) {
+			this.debtRepository = debtRepository;
+		}
+
+		public void run(ApplicationArguments args) {
+			debtRepository.save(new Debt(25,100));
+			debtRepository.save(new Debt(35,500));
+			debtRepository.save(new Debt(15,200));
+			debtRepository.save(new Debt(10,300));
+			debtRepository.save(new Debt(50,400));
+		}
+		//int startingAmountMonthly = 100;
+		//int[] debtPayments = {25, 35, 15, 10, 50};
+		//int[] debtBalances = {100, 500, 200, 300, 400};
+
+	}
 }
+

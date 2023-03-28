@@ -20,10 +20,12 @@ public class DebtController {
 //    public void setDebtService(DebtService debtService) {
 //        this.debtService = debtService;
 //    }
+    @CrossOrigin
     @GetMapping("")
     public List<Debt> retrieveDebts(){
         return debtRepository.findAll();
     }
+    @CrossOrigin
     @PostMapping("")
     public Debt createDebt(@RequestBody Debt debt) {
         return debtRepository.save(debt);

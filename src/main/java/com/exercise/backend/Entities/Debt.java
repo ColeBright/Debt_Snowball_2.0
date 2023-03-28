@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "debt")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Debt {
 
@@ -15,6 +16,10 @@ public class Debt {
     public int balance;
     @Column(name = "debt_payment", nullable = false)
     public  int payment;
+
+    public Debt(){
+
+    }
 
     public Debt(int balance, int payment) {
         this.balance = balance;
